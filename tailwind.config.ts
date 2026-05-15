@@ -9,8 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "ceemi-beige": "#C4956A",
+        "ceemi-cream": "#FDF6EE",
+        "ceemi-dark": "#3D2B1F",
+        "ceemi-brown": "#6B4C2A",
+      },
+      fontFamily: {
+        serif: ["Georgia", "serif"],
+        sans: ["Arial", "Helvetica", "sans-serif"],
       },
     },
   },

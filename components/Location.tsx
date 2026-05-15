@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 
 export default function Location() {
   return (
-    <section id="ubicacion" className="py-20 px-5 bg-white">
+    <section id="ubicacion" className="py-24 md:py-32 px-5 bg-ceemi-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <p className="text-ceemi-beige tracking-[0.25em] text-xs uppercase mb-3">
+        <div className="text-center mb-16 md:mb-20">
+          <p className="text-ceemi-beige tracking-[0.3em] text-xs uppercase mb-4 font-sans">
             Encuéntranos
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ceemi-dark mb-4">
+          <h2 className="font-serif italic text-3xl md:text-4xl font-bold text-ceemi-dark mb-4">
             Ubicación
           </h2>
         </div>

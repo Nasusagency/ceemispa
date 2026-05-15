@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         "ceemi-beige": "#C4956A",
         "ceemi-cream": "#FDF6EE",
+        "ceemi-white": "#FAF7F2",
         "ceemi-dark": "#3D2B1F",
         "ceemi-brown": "#6B4C2A",
       },

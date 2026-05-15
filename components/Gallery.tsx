@@ -12,18 +12,18 @@ const placeholders = [
 
 export default function Gallery() {
   return (
-    <section id="galeria" className="py-20 px-5 bg-ceemi-cream">
+    <section id="galeria" className="py-24 md:py-32 px-5 bg-ceemi-cream">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <p className="text-ceemi-beige tracking-[0.25em] text-xs uppercase mb-3">
-            Conoce el spa
+        <div className="text-center mb-16 md:mb-20">
+          <p className="text-ceemi-beige tracking-[0.3em] text-xs uppercase mb-4 font-sans">
+            Nuestro espacio
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ceemi-dark mb-4">
+          <h2 className="font-serif italic text-3xl md:text-4xl font-bold text-ceemi-dark mb-4">
             Galería
           </h2>
-          <p className="text-ceemi-brown/60 text-sm max-w-sm mx-auto">
-            Fotos reales del spa se agregarán próximamente
+          <p className="text-ceemi-brown/50 text-xs tracking-widest uppercase max-w-sm mx-auto">
+            Fotos reales del spa próximamente
           </p>
         </div>
 

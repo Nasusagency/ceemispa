@@ -12,24 +12,9 @@ const photos = [
     label: "Resultados",
   },
   {
-    src: "/images/Inmobiliario/cabina.jpeg",
-    alt: "Cabina de tratamiento CEEMI SPA",
-    label: "Instalaciones",
-  },
-  {
     src: "/images/Cuerpo/facial-serum.jpeg",
     alt: "Aplicación de sérum facial",
     label: "Faciales",
-  },
-  {
-    src: "/images/Cuerpo/hombro-glow.jpeg",
-    alt: "Tratamiento corporal piel radiante",
-    label: "Corporales",
-  },
-  {
-    src: "/images/Inmobiliario/recepcion.jpeg",
-    alt: "Recepción CEEMI SPA con espejo LED y mármol",
-    label: "Instalaciones",
   },
   {
     src: "/images/Insta/dia-madres.jpeg",
@@ -37,9 +22,24 @@ const photos = [
     label: "Gift Cards",
   },
   {
+    src: "/images/Cuerpo/hombro-glow.jpeg",
+    alt: "Tratamiento corporal piel radiante",
+    label: "Corporales",
+  },
+  {
     src: "/images/Cuerpo/cuello-glow.jpeg",
     alt: "Tratamiento reafirmante de cuello y escote",
     label: "Corporales",
+  },
+  {
+    src: "/images/Inmobiliario/cabina.jpeg",
+    alt: "Cabina de tratamiento CEEMI SPA",
+    label: "Instalaciones",
+  },
+  {
+    src: "/images/Inmobiliario/recepcion.jpeg",
+    alt: "Recepción CEEMI SPA con espejo LED y mármol",
+    label: "Instalaciones",
   },
   {
     src: "/images/Inmobiliario/arco-marmol.jpeg",
@@ -50,10 +50,10 @@ const photos = [
 
 export default function Gallery() {
   return (
-    <section id="galeria" className="py-24 md:py-32 px-5 bg-ceemi-cream">
+    <section id="galeria" className="py-24 md:py-32 bg-ceemi-cream">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-12 md:mb-16 px-5">
           <p className="text-ceemi-beige tracking-[0.3em] text-xs uppercase mb-4 font-sans">
             Nuestro espacio
           </p>
@@ -65,8 +65,41 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {/* MÓVIL: carrusel horizontal con snap */}
+        <div className="md:hidden">
+          <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-5 pb-4">
+            {photos.map((photo, i) => (
+              <div
+                key={i}
+                className="snap-center flex-shrink-0 w-[78vw] aspect-square rounded-2xl overflow-hidden relative"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  className="object-cover"
+                  sizes="78vw"
+                  loading={i < 2 ? "eager" : "lazy"}
+                />
+                {/* Gradiente + etiqueta siempre visible en móvil */}
+                <div className="absolute inset-0 bg-gradient-to-t from-ceemi-dark/60 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-4 text-white text-xs tracking-widest uppercase font-sans">
+                  {photo.label}
+                </span>
+              </div>
+            ))}
+            {/* Padding final para que el último card no quede pegado al borde */}
+            <div className="flex-shrink-0 w-5" aria-hidden="true" />
+          </div>
+
+          {/* Indicador de scroll */}
+          <p className="text-center text-ceemi-brown/35 text-xs tracking-widest uppercase mt-4 px-5">
+            Desliza para ver más
+          </p>
+        </div>
+
+        {/* DESKTOP: grid 3 columnas con hover */}
+        <div className="hidden md:grid grid-cols-3 gap-4 px-5">
           {photos.map((photo, i) => (
             <div
               key={i}
@@ -77,10 +110,9 @@ export default function Gallery() {
                 alt={photo.alt}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 33vw"
+                sizes="33vw"
                 loading={i < 3 ? "eager" : "lazy"}
               />
-              {/* Etiqueta hover */}
               <div className="absolute inset-0 bg-ceemi-dark/0 group-hover:bg-ceemi-dark/40 transition-all duration-300 flex items-end">
                 <span className="w-full text-center text-white text-xs tracking-widest uppercase py-3
                                  translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-sans">
@@ -92,7 +124,7 @@ export default function Gallery() {
         </div>
 
         {/* Instagram CTA */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-10 md:mt-12 px-5">
           <p className="text-ceemi-brown/60 text-sm mb-4">
             Síguenos en Instagram para ver más resultados
           </p>

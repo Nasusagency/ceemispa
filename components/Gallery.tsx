@@ -1,13 +1,51 @@
-const placeholders = [
-  { from: "from-amber-100", to: "to-orange-100" },
-  { from: "from-rose-50", to: "to-amber-100" },
-  { from: "from-amber-200", to: "to-yellow-100" },
-  { from: "from-stone-100", to: "to-amber-100" },
-  { from: "from-amber-100", to: "to-rose-50" },
-  { from: "from-orange-100", to: "to-amber-50" },
-  { from: "from-yellow-50", to: "to-stone-100" },
-  { from: "from-rose-100", to: "to-orange-50" },
-  { from: "from-amber-50", to: "to-amber-200" },
+import Image from "next/image";
+
+const photos = [
+  {
+    src: "/images/Insta/tu-mejor-version.jpeg",
+    alt: "Tratamiento facial con tecnología avanzada CEEMI SPA",
+    label: "Faciales",
+  },
+  {
+    src: "/images/Cuerpo/rostro-glow.jpeg",
+    alt: "Piel radiante tras tratamiento facial",
+    label: "Resultados",
+  },
+  {
+    src: "/images/Inmobiliario/cabina.jpeg",
+    alt: "Cabina de tratamiento CEEMI SPA",
+    label: "Instalaciones",
+  },
+  {
+    src: "/images/Cuerpo/facial-serum.jpeg",
+    alt: "Aplicación de sérum facial",
+    label: "Faciales",
+  },
+  {
+    src: "/images/Cuerpo/hombro-glow.jpeg",
+    alt: "Tratamiento corporal piel radiante",
+    label: "Corporales",
+  },
+  {
+    src: "/images/Inmobiliario/recepcion.jpeg",
+    alt: "Recepción CEEMI SPA con espejo LED y mármol",
+    label: "Instalaciones",
+  },
+  {
+    src: "/images/Insta/dia-madres.jpeg",
+    alt: "Gift card y productos CEEMI SPA",
+    label: "Gift Cards",
+  },
+  {
+    src: "/images/Cuerpo/cuello-glow.jpeg",
+    alt: "Tratamiento reafirmante de cuello y escote",
+    label: "Corporales",
+  },
+  {
+    src: "/images/Inmobiliario/arco-marmol.jpeg",
+    alt: "Detalle arco de mármol CEEMI SPA",
+    label: "Instalaciones",
+  },
 ];
 
 export default function Gallery() {
@@ -23,35 +61,31 @@ export default function Gallery() {
             Galería
           </h2>
           <p className="text-ceemi-brown/50 text-xs tracking-widest uppercase max-w-sm mx-auto">
-            Fotos reales del spa próximamente
+            Tratamientos · Resultados · Instalaciones
           </p>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {placeholders.map((g, i) => (
+          {photos.map((photo, i) => (
             <div
               key={i}
-              className={`aspect-square rounded-xl bg-gradient-to-br ${g.from} ${g.to}
-                          flex items-center justify-center overflow-hidden`}
+              className="relative aspect-square rounded-xl overflow-hidden group"
             >
-              <div className="text-center opacity-25 select-none">
-                <svg
-                  className="w-8 h-8 mx-auto text-ceemi-brown"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                  />
-                </svg>
-                <p className="text-xs text-ceemi-brown mt-2 font-serif">
-                  Próximamente
-                </p>
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 33vw"
+                loading={i < 3 ? "eager" : "lazy"}
+              />
+              {/* Etiqueta hover */}
+              <div className="absolute inset-0 bg-ceemi-dark/0 group-hover:bg-ceemi-dark/40 transition-all duration-300 flex items-end">
+                <span className="w-full text-center text-white text-xs tracking-widest uppercase py-3
+                                 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-sans">
+                  {photo.label}
+                </span>
               </div>
             </div>
           ))}
@@ -60,7 +94,7 @@ export default function Gallery() {
         {/* Instagram CTA */}
         <div className="text-center mt-12">
           <p className="text-ceemi-brown/60 text-sm mb-4">
-            Mientras tanto, síguenos en Instagram para ver nuestros resultados
+            Síguenos en Instagram para ver más resultados
           </p>
           <a
             href="https://www.instagram.com/ceemi_spa"

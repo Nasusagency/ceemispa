@@ -43,12 +43,9 @@ export default function Location() {
               label="Horarios"
             >
               <div className="text-ceemi-brown text-sm leading-relaxed">
-                <p>Lunes — Viernes: Por confirmar</p>
-                <p>Sábado: Por confirmar</p>
-                <p>Domingo: Por confirmar</p>
-                <p className="text-ceemi-beige text-xs mt-2">
-                  Consulta disponibilidad por WhatsApp
-                </p>
+                <p>Lunes — Viernes: 9:00 am – 2:00 pm y 4:00 pm – 7:00 pm</p>
+                <p>Sábados: 9:00 am – 2:00 pm</p>
+                <p>Domingos: Cerrado</p>
               </div>
             </InfoRow>
 

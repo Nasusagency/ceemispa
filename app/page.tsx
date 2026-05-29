@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Packages from "@/components/Packages";
+import Faciales from "@/components/Faciales";
+import Corporales from "@/components/Corporales";
+import Depilacion from "@/components/Depilacion";
+import Masajes from "@/components/Masajes";
 import Gallery from "@/components/Gallery";
-import Location from "@/components/Location";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -11,10 +12,11 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <Services />
-      <Packages />
+      <Faciales />
+      <Corporales />
+      <Depilacion />
+      <Masajes />
       <Gallery />
-      <Location />
       <Footer />
     </main>
   );

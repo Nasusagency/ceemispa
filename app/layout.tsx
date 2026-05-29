@@ -3,26 +3,29 @@ import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
-  title: "CEEMI SPA — Skin & Wellness en Tepatitlán de Morelos",
+  title: "CEEMI Clínica Estética — Tu mejor versión empieza aquí",
   description:
-    "Faciales, masajes, corporales y tecnología estética en Tepatitlán. Agenda tu cita por WhatsApp.",
+    "Faciales, corporales, depilación láser Soprano Ice Platinum y masajes con tecnología avanzada en Tepatitlán de Morelos, Jalisco. Agenda tu cita por WhatsApp.",
   openGraph: {
-    title: "CEEMI SPA — Skin & Wellness en Tepatitlán de Morelos",
+    title: "CEEMI Clínica Estética — Tu mejor versión empieza aquí",
     description:
-      "Faciales, masajes, corporales y tecnología estética en Tepatitlán. Agenda tu cita por WhatsApp.",
+      "Faciales, corporales, depilación láser Soprano Ice Platinum y masajes con tecnología avanzada en Tepatitlán de Morelos, Jalisco.",
     type: "website",
     locale: "es_MX",
   },
   keywords: [
-    "spa",
+    "clínica estética",
     "Tepatitlán",
     "faciales",
     "masajes",
     "corporales",
+    "depilación láser",
+    "Soprano Ice Platinum",
+    "HIFU",
     "tecnología estética",
     "bienestar",
     "Jalisco",
-    "CEEMI SPA",
+    "CEEMI",
   ],
 };
 

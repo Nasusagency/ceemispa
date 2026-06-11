@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const WA_BASE = "https://wa.me/523781122322?text=";
 
-const treatments = [
+const treatments: { img?: string; name: string; desc: string; price: string; msg: string }[] = [
   {
     img: "/images/Cuerpo/corporales.jpeg",
     name: "MOLDEO CORPORAL",
@@ -18,14 +18,12 @@ const treatments = [
     msg: "Hola! Me interesa información sobre Reafirmante Corporal en CEEMI Clínica Estética.",
   },
   {
-    img: "/images/Inmobiliario/cabina.jpeg",
     name: "PRESOTERAPIA",
     desc: "Drenaje corporal que ayuda a disminuir la retención de líquidos e inflamación.",
     price: "$300",
     msg: "Hola! Me interesa información sobre Presoterapia en CEEMI Clínica Estética.",
   },
   {
-    img: "/images/Inmobiliario/cabina-2.jpeg",
     name: "HIFU CORPORAL",
     desc: "Tratamiento avanzado que ayuda a tensar, reafirmar y redefinir zonas corporales sin cirugía.",
     price: "$2,500",
@@ -89,15 +87,17 @@ export default function Corporales() {
                 key={t.name}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
               >
-                <div className="relative aspect-square">
-                  <Image
-                    src={t.img}
-                    alt={t.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 50vw, 25vw"
-                  />
-                </div>
+                {t.img && (
+                  <div className="relative aspect-square">
+                    <Image
+                      src={t.img}
+                      alt={t.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                    />
+                  </div>
+                )}
                 <div className="p-4 md:p-5 flex flex-col flex-1">
                   <h3 className="font-serif text-sm md:text-[15px] font-bold text-ceemi-dark mb-2 tracking-wide">
                     {t.name}

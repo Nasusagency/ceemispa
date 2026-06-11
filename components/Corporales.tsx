@@ -1,33 +1,35 @@
+import Image from "next/image";
+
 const WA_BASE = "https://wa.me/523781122322?text=";
 
 const treatments = [
   {
+    img: "/images/Cuerpo/corporales.jpeg",
     name: "MOLDEO CORPORAL",
     desc: "Tratamiento enfocado en ayudar a moldear y definir zonas específicas del cuerpo.",
     price: "$550",
     msg: "Hola! Me interesa información sobre Moldeo Corporal en CEEMI Clínica Estética.",
-    icon: <MoldeoIcon />,
   },
   {
+    img: "/images/Cuerpo/hombro-glow.jpeg",
     name: "REAFIRMANTE CORPORAL",
     desc: "Ayuda a mejorar la firmeza y elasticidad de la piel, mejorando su apariencia.",
     price: "$500",
     msg: "Hola! Me interesa información sobre Reafirmante Corporal en CEEMI Clínica Estética.",
-    icon: <ReafirmanteIcon />,
   },
   {
+    img: "/images/Inmobiliario/cabina.jpeg",
     name: "PRESOTERAPIA",
     desc: "Drenaje corporal que ayuda a disminuir la retención de líquidos e inflamación.",
     price: "$300",
     msg: "Hola! Me interesa información sobre Presoterapia en CEEMI Clínica Estética.",
-    icon: <PresoterapiaIcon />,
   },
   {
+    img: "/images/Inmobiliario/cabina-2.jpeg",
     name: "HIFU CORPORAL",
     desc: "Tratamiento avanzado que ayuda a tensar, reafirmar y redefinir zonas corporales sin cirugía.",
     price: "$2,500",
     msg: "Hola! Me interesa información sobre HIFU Corporal en CEEMI Clínica Estética.",
-    icon: <HifuIcon />,
   },
 ];
 
@@ -81,39 +83,46 @@ export default function Corporales() {
           </div>
 
           {/* 4 treatment cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
             {treatments.map((t) => (
               <div
                 key={t.name}
-                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
               >
-                <div className="w-12 h-12 rounded-full bg-ceemi-cream flex items-center justify-center text-ceemi-beige mb-4">
-                  {t.icon}
+                <div className="relative aspect-square">
+                  <Image
+                    src={t.img}
+                    alt={t.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, 25vw"
+                  />
                 </div>
-                <h3 className="font-serif text-[15px] font-bold text-ceemi-dark mb-2 tracking-wide">
-                  {t.name}
-                </h3>
-                <p className="text-ceemi-brown/65 text-xs leading-relaxed flex-1 mb-5">
-                  {t.desc}
-                </p>
-                <div>
-                  <p className="font-serif text-xl font-bold text-ceemi-dark">
-                    desde {t.price}
+                <div className="p-4 md:p-5 flex flex-col flex-1">
+                  <h3 className="font-serif text-sm md:text-[15px] font-bold text-ceemi-dark mb-2 tracking-wide">
+                    {t.name}
+                  </h3>
+                  <p className="text-ceemi-brown/65 text-xs leading-relaxed mb-4 flex-1">
+                    {t.desc}
                   </p>
-                  <p className="text-[11px] text-ceemi-brown/40 font-sans">/sesión</p>
-                  <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-3">
-                    *Precios personalizables según tu valoración
-                  </p>
-                  <a
-                    href={WA_BASE + encodeURIComponent(t.msg)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center text-[11px] text-ceemi-beige border border-ceemi-beige/50
-                               rounded-full py-2 hover:bg-ceemi-beige hover:text-white
-                               transition-all duration-200 tracking-widest uppercase"
-                  >
-                    Más información
-                  </a>
+                  <div>
+                    <p className="font-serif text-lg md:text-xl font-bold text-ceemi-dark">
+                      desde {t.price}
+                    </p>
+                    <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-3">
+                      *Precios personalizables según tu valoración
+                    </p>
+                    <a
+                      href={WA_BASE + encodeURIComponent(t.msg)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-center text-[11px] text-ceemi-beige border border-ceemi-beige/50
+                                 rounded-full py-2 hover:bg-ceemi-beige hover:text-white
+                                 transition-all duration-200 tracking-widest uppercase"
+                    >
+                      Más información
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -177,37 +186,5 @@ export default function Corporales() {
         </div>
       </section>
     </>
-  );
-}
-
-function MoldeoIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-    </svg>
-  );
-}
-
-function ReafirmanteIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
-    </svg>
-  );
-}
-
-function PresoterapiaIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-    </svg>
-  );
-}
-
-function HifuIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
-    </svg>
   );
 }

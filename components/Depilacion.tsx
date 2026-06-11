@@ -1,16 +1,19 @@
 const WA_BASE = "https://wa.me/523781122322?text=";
 
 const zones = [
-  { name: "Axilas",          single: "$500",    pack: "$2,000" },
-  { name: "Bikini",          single: "$600",    pack: "$2,400" },
-  { name: "Bikini Brasileño",single: "$800",    pack: "$3,200" },
-  { name: "Medio Brazo",     single: "$600",    pack: "$2,400" },
-  { name: "Brazo Completo",  single: "$1,000",  pack: "$4,000" },
-  { name: "Medias Piernas",  single: "$1,200",  pack: "$4,800" },
-  { name: "Piernas Completas",single:"$2,000",  pack: "$8,000" },
-  { name: "Espalda",         single: "$1,200",  pack: "$4,800" },
-  { name: "Pecho",           single: "$800",    pack: "$3,200" },
-  { name: "Abdomen",         single: "$600",    pack: "$2,400" },
+  { name: "Axilas",                 single: "$500",    pack: "$2,200" },
+  { name: "Rostro",                 single: "$500",    pack: "$2,200" },
+  { name: "Cuello",                 single: "$500",    pack: "$2,200" },
+  { name: "Bikini",                 single: "$500",    pack: "$2,200" },
+  { name: "Bikini Brasileño",       single: "$800",    pack: "$3,600" },
+  { name: "Pecho",                  single: "$800",    pack: "$3,600" },
+  { name: "Espalda",                single: "$800",    pack: "$3,600" },
+  { name: "Media Pierna",           single: "$800",    pack: "$3,800" },
+  { name: "Medio Brazo",            single: "$600",    pack: "$3,800" },
+  { name: "Brazo Completo",         single: "$600",    pack: "$3,800" },
+  { name: "Piernas Completas",      single: "$1,200",  pack: "$5,000" },
+  { name: "Cuerpo Completo Mujer",  single: "$2,800",  pack: "$12,800" },
+  { name: "Cuerpo Completo Hombre", single: "$3,500",  pack: "$15,500" },
 ];
 
 export default function Depilacion() {

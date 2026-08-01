@@ -16,6 +16,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Georgia, serif;
 }
 
+@layer components {
+  .admin-input {
+    @apply w-full rounded-xl border border-ceemi-dark/15 px-3.5 py-2.5 text-sm text-ceemi-dark bg-white focus:outline-none focus:border-ceemi-beige;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

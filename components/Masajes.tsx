@@ -1,54 +1,14 @@
-const WA_BASE = "https://wa.me/523781122322?text=";
+import Image from "next/image";
+import type { Servicio } from "@/lib/data";
+import { formatoPrecio, waMensaje } from "@/lib/whatsapp";
 
-const massages = [
-  {
-    name: "MASAJE RELAJANTE",
-    duration: "90 min",
-    price: "$1,200",
-    msg: "Hola! Me interesa información sobre el Masaje Relajante en CEEMI Clínica Estética.",
-  },
-  {
-    name: "MASAJE DESCONTRACTURANTE",
-    duration: "60 min",
-    price: "$800",
-    msg: "Hola! Me interesa información sobre el Masaje Descontracturante en CEEMI Clínica Estética.",
-  },
-  {
-    name: "MASAJE REDUCTIVO",
-    duration: "60 min",
-    price: "$900",
-    msg: "Hola! Me interesa información sobre el Masaje Reductivo en CEEMI Clínica Estética.",
-  },
-  {
-    name: "MASAJE DRENANTE",
-    duration: "60 min",
-    price: "$800",
-    msg: "Hola! Me interesa información sobre el Masaje Drenante en CEEMI Clínica Estética.",
-  },
-];
+type Props = {
+  masajes: Servicio[];
+  complementos: Servicio[];
+  bannerUrl?: string | null;
+};
 
-const complements = [
-  {
-    name: "DRENAJE LINFÁTICO",
-    desc: "Favorece la eliminación de toxinas, reduce inflamación y mejora la circulación.",
-    price: "$700",
-    msg: "Hola! Me interesa información sobre Drenaje Linfático en CEEMI Clínica Estética.",
-  },
-  {
-    name: "ENVOLTURAS CORPORALES",
-    desc: "Tratamientos complementarios que ayudan a desintoxicar, hidratar y reafirmar la piel.",
-    price: "$800",
-    msg: "Hola! Me interesa información sobre Envolturas Corporales en CEEMI Clínica Estética.",
-  },
-  {
-    name: "EXFOLIACIÓN CORPORAL",
-    desc: "Renueva tu piel, elimina células muertas y mejora la absorción de activos.",
-    price: "$500",
-    msg: "Hola! Me interesa información sobre Exfoliación Corporal en CEEMI Clínica Estética.",
-  },
-];
-
-export default function Masajes() {
+export default function Masajes({ masajes, complementos, bannerUrl }: Props) {
   return (
     <>
       {/* ── MASAJES CORPORALES ── */}
@@ -70,28 +30,43 @@ export default function Masajes() {
             </div>
           </div>
 
-          {/* 4 massage cards */}
+          {bannerUrl && (
+            <div className="relative w-full aspect-[21/9] rounded-3xl overflow-hidden mb-12 shadow-sm">
+              <Image
+                src={bannerUrl}
+                alt="Masajes — CEEMI Clínica Estética"
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
+          )}
+
+          {/* Massage cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
-            {massages.map((m) => (
+            {masajes.map((m) => (
               <div
-                key={m.name}
+                key={m.id}
                 className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
               >
                 <h3 className="font-serif text-sm font-bold text-ceemi-dark mb-1 tracking-wide">
-                  {m.name}
+                  {m.nombre}
                 </h3>
-                <p className="text-ceemi-brown/50 text-xs font-sans mb-4 flex-1">
-                  {m.duration}
-                </p>
+                {m.duracion && (
+                  <p className="text-ceemi-brown/50 text-xs font-sans mb-4 flex-1">
+                    {m.duracion}
+                  </p>
+                )}
                 <div>
                   <p className="font-serif text-2xl font-bold text-ceemi-dark">
-                    {m.price}
+                    {m.precio_desde ? "desde " : ""}
+                    {formatoPrecio(m.precio)}
                   </p>
                   <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-3">
                     *Precios personalizables según tu valoración
                   </p>
                   <a
-                    href={WA_BASE + encodeURIComponent(m.msg)}
+                    href={waMensaje(m)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-center text-[11px] text-ceemi-beige border border-ceemi-beige/50
@@ -108,52 +83,55 @@ export default function Masajes() {
       </section>
 
       {/* ── COMPLEMENTA TU BIENESTAR ── */}
-      <section className="py-20 md:py-28 px-5 bg-ceemi-white">
-        <div className="max-w-6xl mx-auto">
+      {complementos.length > 0 && (
+        <section className="py-20 md:py-28 px-5 bg-ceemi-white">
+          <div className="max-w-6xl mx-auto">
 
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-ceemi-dark tracking-wider">
-              COMPLEMENTA TU BIENESTAR
-            </h2>
-          </div>
+            {/* Header */}
+            <div className="text-center mb-12">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-ceemi-dark tracking-wider">
+                COMPLEMENTA TU BIENESTAR
+              </h2>
+            </div>
 
-          {/* 3 complement cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {complements.map((c) => (
-              <div
-                key={c.name}
-                className="bg-white rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
-              >
-                <h3 className="font-serif text-base font-bold text-ceemi-dark mb-3 tracking-wide">
-                  {c.name}
-                </h3>
-                <p className="text-ceemi-brown/65 text-sm leading-relaxed flex-1 mb-5">
-                  {c.desc}
-                </p>
-                <div>
-                  <p className="font-serif text-2xl font-bold text-ceemi-dark">
-                    desde {c.price}
+            {/* Complement cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+              {complementos.map((c) => (
+                <div
+                  key={c.id}
+                  className="bg-white rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
+                >
+                  <h3 className="font-serif text-base font-bold text-ceemi-dark mb-3 tracking-wide">
+                    {c.nombre}
+                  </h3>
+                  <p className="text-ceemi-brown/65 text-sm leading-relaxed flex-1 mb-5">
+                    {c.descripcion}
                   </p>
-                  <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-4">
-                    *Precios personalizables según tu valoración
-                  </p>
-                  <a
-                    href={WA_BASE + encodeURIComponent(c.msg)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center bg-ceemi-beige text-white rounded-full py-3
-                               text-[11px] tracking-widest uppercase hover:bg-ceemi-brown
-                               transition-colors duration-200"
-                  >
-                    Más información
-                  </a>
+                  <div>
+                    <p className="font-serif text-2xl font-bold text-ceemi-dark">
+                      {c.precio_desde ? "desde " : ""}
+                      {formatoPrecio(c.precio)}
+                    </p>
+                    <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-4">
+                      *Precios personalizables según tu valoración
+                    </p>
+                    <a
+                      href={waMensaje(c)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-center bg-ceemi-beige text-white rounded-full py-3
+                                 text-[11px] tracking-widest uppercase hover:bg-ceemi-brown
+                                 transition-colors duration-200"
+                    >
+                      Más información
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

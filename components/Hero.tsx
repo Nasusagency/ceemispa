@@ -3,7 +3,11 @@ import type { ReactNode } from "react";
 
 const WA = "https://wa.me/523781122322";
 
-export default function Hero() {
+type Props = {
+  imagenUrl?: string | null;
+};
+
+export default function Hero({ imagenUrl }: Props) {
   return (
     <section
       id="inicio"
@@ -56,7 +60,7 @@ export default function Hero() {
           <div className="flex justify-center order-1 lg:order-2">
             <div className="relative w-72 sm:w-80 lg:w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/Cuerpo/rostro-glow.jpeg"
+                src={imagenUrl || "/images/Cuerpo/rostro-glow.jpeg"}
                 alt="CEEMI Clínica Estética — Tratamiento facial"
                 fill
                 priority

@@ -1,22 +1,13 @@
-const WA_BASE = "https://wa.me/523781122322?text=";
+import Image from "next/image";
+import type { Servicio } from "@/lib/data";
+import { formatoPrecio, waHref } from "@/lib/whatsapp";
 
-const zones = [
-  { name: "Axilas",                 single: "$500",    pack: "$2,200" },
-  { name: "Rostro",                 single: "$500",    pack: "$2,200" },
-  { name: "Cuello",                 single: "$500",    pack: "$2,200" },
-  { name: "Bikini",                 single: "$500",    pack: "$2,200" },
-  { name: "Bikini Brasileño",       single: "$800",    pack: "$3,600" },
-  { name: "Pecho",                  single: "$800",    pack: "$3,600" },
-  { name: "Espalda",                single: "$800",    pack: "$3,600" },
-  { name: "Media Pierna",           single: "$800",    pack: "$3,800" },
-  { name: "Medio Brazo",            single: "$600",    pack: "$3,800" },
-  { name: "Brazo Completo",         single: "$600",    pack: "$3,800" },
-  { name: "Piernas Completas",      single: "$1,200",  pack: "$5,000" },
-  { name: "Cuerpo Completo Mujer",  single: "$2,800",  pack: "$12,800" },
-  { name: "Cuerpo Completo Hombre", single: "$3,500",  pack: "$15,500" },
-];
+type Props = {
+  zonas: Servicio[];
+  bannerUrl?: string | null;
+};
 
-export default function Depilacion() {
+export default function Depilacion({ zonas, bannerUrl }: Props) {
   return (
     <section id="depilacion" className="py-20 md:py-28 px-5 bg-ceemi-white">
       <div className="max-w-3xl mx-auto">
@@ -39,6 +30,18 @@ export default function Depilacion() {
           </div>
         </div>
 
+        {bannerUrl && (
+          <div className="relative w-full aspect-[21/9] rounded-3xl overflow-hidden mb-10 shadow-sm">
+            <Image
+              src={bannerUrl}
+              alt="Depilación láser — CEEMI Clínica Estética"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+        )}
+
         {/* Table */}
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-6">
 
@@ -56,21 +59,21 @@ export default function Depilacion() {
           </div>
 
           {/* Rows */}
-          {zones.map((z, i) => (
+          {zonas.map((z, i) => (
             <div
-              key={z.name}
+              key={z.id}
               className={`grid grid-cols-3 border-b border-ceemi-cream last:border-0 ${
                 i % 2 === 0 ? "bg-white" : "bg-ceemi-white/60"
               }`}
             >
               <div className="py-3.5 px-5 text-ceemi-dark text-sm font-sans">
-                {z.name}
+                {z.nombre}
               </div>
               <div className="py-3.5 px-4 text-ceemi-dark text-sm font-serif font-semibold text-center border-l border-ceemi-cream">
-                {z.single}
+                {formatoPrecio(z.precio)}
               </div>
               <div className="py-3.5 px-4 text-ceemi-dark text-sm font-serif font-bold text-center bg-ceemi-beige/8">
-                {z.pack}
+                {z.precio_paquete ? formatoPrecio(z.precio_paquete) : "—"}
               </div>
             </div>
           ))}
@@ -84,7 +87,7 @@ export default function Depilacion() {
         {/* CTA */}
         <div className="text-center">
           <a
-            href={WA_BASE + encodeURIComponent("Hola! Me interesa información sobre depilación láser Soprano Ice Platinum en CEEMI Clínica Estética.")}
+            href={waHref("Hola! Me interesa información sobre depilación láser Soprano Ice Platinum en CEEMI Clínica Estética.")}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 bg-ceemi-beige text-white

@@ -1,64 +1,14 @@
 import Image from "next/image";
+import type { Servicio } from "@/lib/data";
+import { formatoPrecio, waMensaje } from "@/lib/whatsapp";
 
-const WA_BASE = "https://wa.me/523781122322?text=";
+type Props = {
+  tratamientos: Servicio[];
+  paquetes: Servicio[];
+  bannerUrl?: string | null;
+};
 
-const treatments: { img?: string; name: string; desc: string; price: string; msg: string }[] = [
-  {
-    img: "/images/Cuerpo/corporales.jpeg",
-    name: "MOLDEO CORPORAL",
-    desc: "Tratamiento enfocado en ayudar a moldear y definir zonas específicas del cuerpo.",
-    price: "$550",
-    msg: "Hola! Me interesa información sobre Moldeo Corporal en CEEMI Clínica Estética.",
-  },
-  {
-    img: "/images/Cuerpo/hombro-glow.jpeg",
-    name: "REAFIRMANTE CORPORAL",
-    desc: "Ayuda a mejorar la firmeza y elasticidad de la piel, mejorando su apariencia.",
-    price: "$500",
-    msg: "Hola! Me interesa información sobre Reafirmante Corporal en CEEMI Clínica Estética.",
-  },
-  {
-    name: "PRESOTERAPIA",
-    desc: "Drenaje corporal que ayuda a disminuir la retención de líquidos e inflamación.",
-    price: "$300",
-    msg: "Hola! Me interesa información sobre Presoterapia en CEEMI Clínica Estética.",
-  },
-  {
-    name: "HIFU CORPORAL",
-    desc: "Tratamiento avanzado que ayuda a tensar, reafirmar y redefinir zonas corporales sin cirugía.",
-    price: "$2,500",
-    msg: "Hola! Me interesa información sobre HIFU Corporal en CEEMI Clínica Estética.",
-  },
-];
-
-const packages = [
-  {
-    name: "BODY RESET",
-    combo: "Presoterapia + drenaje + reafirmante corporal.",
-    sessions: "5 sesiones",
-    price: "$2,499",
-    desde: false,
-    msg: "Hola! Me interesa el paquete Body Reset en CEEMI Clínica Estética.",
-  },
-  {
-    name: "BODY SCULPT",
-    combo: "Moldeo corporal + reafirmante + presoterapia.",
-    sessions: "10 sesiones",
-    price: "$5,999",
-    desde: false,
-    msg: "Hola! Me interesa el paquete Body Sculpt en CEEMI Clínica Estética.",
-  },
-  {
-    name: "BODY CONTOUR",
-    combo: "HIFU corporal + moldeo + drenaje corporal.",
-    sessions: "Programa premium",
-    price: "$12,900",
-    desde: true,
-    msg: "Hola! Me interesa el paquete Body Contour en CEEMI Clínica Estética.",
-  },
-];
-
-export default function Corporales() {
+export default function Corporales({ tratamientos, paquetes, bannerUrl }: Props) {
   return (
     <>
       {/* ── TRATAMIENTOS CORPORALES ── */}
@@ -80,18 +30,30 @@ export default function Corporales() {
             </div>
           </div>
 
-          {/* 4 treatment cards */}
+          {bannerUrl && (
+            <div className="relative w-full aspect-[21/9] rounded-3xl overflow-hidden mb-12 shadow-sm">
+              <Image
+                src={bannerUrl}
+                alt="Corporales — CEEMI Clínica Estética"
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
+          )}
+
+          {/* Treatment cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
-            {treatments.map((t) => (
+            {tratamientos.map((t) => (
               <div
-                key={t.name}
+                key={t.id}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
               >
-                {t.img && (
+                {t.imagen_url && (
                   <div className="relative aspect-square">
                     <Image
-                      src={t.img}
-                      alt={t.name}
+                      src={t.imagen_url}
+                      alt={t.nombre}
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 50vw, 25vw"
@@ -100,20 +62,21 @@ export default function Corporales() {
                 )}
                 <div className="p-4 md:p-5 flex flex-col flex-1">
                   <h3 className="font-serif text-sm md:text-[15px] font-bold text-ceemi-dark mb-2 tracking-wide">
-                    {t.name}
+                    {t.nombre}
                   </h3>
                   <p className="text-ceemi-brown/65 text-xs leading-relaxed mb-4 flex-1">
-                    {t.desc}
+                    {t.descripcion}
                   </p>
                   <div>
                     <p className="font-serif text-lg md:text-xl font-bold text-ceemi-dark">
-                      desde {t.price}
+                      {t.precio_desde ? "desde " : ""}
+                      {formatoPrecio(t.precio)}
                     </p>
                     <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-3">
                       *Precios personalizables según tu valoración
                     </p>
                     <a
-                      href={WA_BASE + encodeURIComponent(t.msg)}
+                      href={waMensaje(t)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block text-center text-[11px] text-ceemi-beige border border-ceemi-beige/50
@@ -131,60 +94,64 @@ export default function Corporales() {
       </section>
 
       {/* ── PAQUETES CORPORALES ── */}
-      <section className="py-20 md:py-28 px-5 bg-ceemi-cream">
-        <div className="max-w-6xl mx-auto">
+      {paquetes.length > 0 && (
+        <section className="py-20 md:py-28 px-5 bg-ceemi-cream">
+          <div className="max-w-6xl mx-auto">
 
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-ceemi-dark tracking-wider">
-              PAQUETES CORPORALES
-            </h2>
-          </div>
+            {/* Header */}
+            <div className="text-center mb-12">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-ceemi-dark tracking-wider">
+                PAQUETES CORPORALES
+              </h2>
+            </div>
 
-          {/* 3 package cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {packages.map((p) => (
-              <div
-                key={p.name}
-                className="bg-white rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
-              >
-                <span className="text-ceemi-beige text-[11px] tracking-widest uppercase font-sans mb-1">
-                  {p.sessions}
-                </span>
-                <h3 className="font-serif text-xl font-bold text-ceemi-dark mb-3 tracking-wide">
-                  {p.name}
-                </h3>
-                <p className="text-ceemi-brown/65 text-sm leading-relaxed flex-1 mb-6">
-                  {p.combo}
-                </p>
-                <div>
-                  <div className="flex items-baseline gap-1">
-                    {p.desde && (
-                      <span className="text-ceemi-brown/60 text-sm font-sans">desde</span>
-                    )}
-                    <p className="font-serif text-3xl font-bold text-ceemi-dark">
-                      {p.price}
-                    </p>
-                  </div>
-                  <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-4">
-                    *Precios personalizables según tu valoración
+            {/* Package cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+              {paquetes.map((p) => (
+                <div
+                  key={p.id}
+                  className="bg-white rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
+                >
+                  {p.duracion && (
+                    <span className="text-ceemi-beige text-[11px] tracking-widest uppercase font-sans mb-1">
+                      {p.duracion}
+                    </span>
+                  )}
+                  <h3 className="font-serif text-xl font-bold text-ceemi-dark mb-3 tracking-wide">
+                    {p.nombre}
+                  </h3>
+                  <p className="text-ceemi-brown/65 text-sm leading-relaxed flex-1 mb-6">
+                    {p.descripcion}
                   </p>
-                  <a
-                    href={WA_BASE + encodeURIComponent(p.msg)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center bg-ceemi-beige text-white rounded-full py-3
-                               text-[11px] tracking-widest uppercase hover:bg-ceemi-brown
-                               transition-colors duration-200"
-                  >
-                    Agendar
-                  </a>
+                  <div>
+                    <div className="flex items-baseline gap-1">
+                      {p.precio_desde && (
+                        <span className="text-ceemi-brown/60 text-sm font-sans">desde</span>
+                      )}
+                      <p className="font-serif text-3xl font-bold text-ceemi-dark">
+                        {formatoPrecio(p.precio)}
+                      </p>
+                    </div>
+                    <p className="text-ceemi-brown/45 text-[10px] italic mt-0.5 mb-4">
+                      *Precios personalizables según tu valoración
+                    </p>
+                    <a
+                      href={waMensaje(p)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-center bg-ceemi-beige text-white rounded-full py-3
+                                 text-[11px] tracking-widest uppercase hover:bg-ceemi-brown
+                                 transition-colors duration-200"
+                    >
+                      Agendar
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }
